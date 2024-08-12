@@ -66,7 +66,7 @@ exports.handleAdminLogin = async (req, res) => {
 
 exports.handleGetCards = async (req, res) => {
   try {
-    const data = await db.query("SELECT * FROM flashcards");
+    const data = await db.query("SELECT * FROM flashcards ORDER BY created_at DESC");
     if (data.length === 0)
       return res.status(404).json({ data: [], message: "No flashcard found" });
     return res
@@ -80,6 +80,7 @@ exports.handleGetCards = async (req, res) => {
 
 exports.handleAddCard = async (req, res) => {
   const { question, answer } = req.body;
+  console.log(question, answer)
   if (!question || !answer)
     return res
       .status(400)
